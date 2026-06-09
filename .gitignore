@@ -1,0 +1,20 @@
+# Dépendances Node
+node_modules/
+
+# Compilation TypeScript
+out/
+
+# Package VS Code généré
+*.vsix
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code (paramètres locaux uniquement)
+.vscode/settings.json
+.vscode/launch.json
