@@ -1,0 +1,319 @@
+{
+  "name": "TradeXpress RTE",
+  "scopeName": "source.rte",
+  "fileTypes": ["rte", "inc"],
+  "patterns": [
+    { "include": "#comment-info" },
+    { "include": "#comment-line" },
+    { "include": "#preprocessor" },
+    { "include": "#block-keywords" },
+    { "include": "#control-keywords" },
+    { "include": "#builtin-constants" },
+    { "include": "#builtin-functions" },
+    { "include": "#system-variables" },
+    { "include": "#variable-types" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "comment-info": {
+      "name": "comment.block.documentation.rte",
+      "match": "^%.*$"
+    },
+    "comment-line": {
+      "name": "comment.line.exclamation.rte",
+      "match": "!.*$"
+    },
+    "preprocessor": {
+      "name": "meta.preprocessor.rte",
+      "match": "^\\s*(#\\s*(include|define|ifdef|ifndef|endif|else|undef|if))\\b.*$",
+      "captures": {
+        "1": { "name": "keyword.control.preprocessor.rte" }
+      }
+    },
+    "block-keywords": {
+      "patterns": [
+        {
+          "comment": "Ouvertures de blocs",
+          "name": "keyword.control.block.open.rte",
+          "match": "\\b(begin|endbegin|endend|endline|endsegment|endfunction|enddefault|endwhile|endif|endswitch|endtry|endinline)\\b"
+        },
+        {
+          "comment": "Déclarations de blocs",
+          "name": "keyword.control.block.declaration.rte",
+          "match": "^\\s*(line|segment|default|function|inline)(?=\\s|$|\\()"
+        },
+        {
+          "comment": "Bloc begin/end spéciaux",
+          "name": "keyword.control.block.special.rte",
+          "match": "^\\s*(end|begin)(?=\\s*$|\\s*!)"
+        },
+        {
+          "comment": "Définitions message/base/segments",
+          "name": "keyword.other.definition.rte",
+          "match": "\\b(message|base|segments)\\b"
+        },
+        {
+          "comment": "Direction message",
+          "name": "keyword.other.direction.rte",
+          "match": "\\b(building|receiving)\\b"
+        }
+      ]
+    },
+    "control-keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.rte",
+          "match": "\\b(if|then|else|endif)\\b"
+        },
+        {
+          "name": "keyword.control.loop.rte",
+          "match": "\\b(while|do|endwhile|in|break|continue|next)\\b"
+        },
+        {
+          "name": "keyword.control.switch.rte",
+          "match": "\\b(switch|case|default|endswitch)\\b"
+        },
+        {
+          "name": "keyword.control.exception.rte",
+          "match": "\\b(try|catch|finally|endtry|throw)\\b"
+        },
+        {
+          "name": "keyword.control.flow.rte",
+          "match": "\\b(return|exit)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.rte",
+          "match": "\\b(and|or|not)\\b"
+        }
+      ]
+    },
+    "builtin-constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.rte",
+          "match": "\\b(TRUE|FALSE)\\b"
+        },
+        {
+          "name": "constant.language.special.rte",
+          "match": "\\b(NL|EOL|EMPTY|SEGMENTS|MESSAGE)\\b"
+        },
+        {
+          "comment": "Variables système en majuscules",
+          "name": "constant.language.system.rte",
+          "match": "\\b(APPL_DEC_SEP|MSG_DEC_SEP|FILL_CHAR|RETURN_BUFFER|LOGLEVEL|PROCESS_ERRONEOUS|EXCEPTION_CLASS|EXCEPTION_REASON|EXCEPTION_CODE|EXCEPTION_MESSAGE|HTTP_RETURN_CODE)\\b"
+        }
+      ]
+    },
+    "builtin-functions": {
+      "patterns": [
+        {
+          "comment": "Fonctions de traitement de texte",
+          "name": "support.function.text.rte",
+          "match": "\\b(build|compare|index|length|number|peel|replace|split|strip|substr|toupper|tolower)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions I/O",
+          "name": "support.function.io.rte",
+          "match": "\\b(print|log|debug|put|flush|pick|read|load|redirect)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions fichier",
+          "name": "support.function.file.rte",
+          "match": "\\b(close|copy|link|remove|rename|exist)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions processus",
+          "name": "support.function.process.rte",
+          "match": "\\b(background|exec|exit|spawn)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions base de données",
+          "name": "support.function.database.rte",
+          "match": "\\b(find|new|valid)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions temps",
+          "name": "support.function.time.rte",
+          "match": "\\b(time)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions EDI",
+          "name": "support.function.edi.rte",
+          "match": "\\b(edierrorlist|edierrordump)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions SQL (préfixe bf)",
+          "name": "support.function.sql.rte",
+          "match": "\\b(bfSqlConnect|bfSqlSet|bfSqlExec|bfSqlFetch|bfSqlClose|bfSqlOdbc|bfSqlJdbc|bfSqlOracle|bfSqlClearParams|bfSqlGetError|bfSqlBeginTransaction|bfSqlCommit|bfSqlRollback)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions HTTP natives",
+          "name": "support.function.http.rte",
+          "match": "\\b(http|httpfile)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions JSON",
+          "name": "support.function.json.rte",
+          "match": "\\b(loadjson|savejson|getjson|setjson|deljson)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions XML",
+          "name": "support.function.xml.rte",
+          "match": "\\b(bfXmlLoad|bfXmlSave|bfXmlGet|bfXmlSet|bfXmlDel|bfXmlCreate)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions exception",
+          "name": "support.function.exception.rte",
+          "match": "\\b(bfPrintExceptionStack|bfLogExceptionStack)\\s*(?=\\()"
+        },
+        {
+          "comment": "Fonctions FTP",
+          "name": "support.function.ftp.rte",
+          "match": "\\b(bfFTP_connect|bfFTP_send|bfFTP_recv|bfFTP_list|bfFTP_delete|bfFTP_quit|bfFTP_pasv)\\s*(?=\\()"
+        }
+      ]
+    },
+    "system-variables": {
+      "patterns": [
+        {
+          "comment": "Variables de type message (m...)",
+          "name": "variable.other.message.rte",
+          "match": "\\bm[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables de type élément EDI (e...)",
+          "name": "variable.other.element.rte",
+          "match": "\\be[A-Z0-9][A-Za-z0-9_.]*\\b"
+        },
+        {
+          "comment": "Compteurs statiques (c...)",
+          "name": "variable.other.counter.rte",
+          "match": "\\bc[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables d'environnement (s...)",
+          "name": "variable.other.env.rte",
+          "match": "\\bs[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Options ligne de commande (o...)",
+          "name": "variable.other.option.rte",
+          "match": "\\bo[A-Z]\\b"
+        },
+        {
+          "comment": "Paramètres (p...)",
+          "name": "variable.other.parameter.rte",
+          "match": "\\bp[A-Z][A-Za-z0-9_]*(\\.[a-zA-Z0-9_]+)*\\b"
+        },
+        {
+          "comment": "Fichiers (f...)",
+          "name": "variable.other.file.rte",
+          "match": "\\bf[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Groupe EDI (g...)",
+          "name": "variable.other.group.rte",
+          "match": "\\bg[A-Za-z0-9_]+\\b"
+        }
+      ]
+    },
+    "variable-types": {
+      "patterns": [
+        {
+          "comment": "Fonctions utilisateur tf/nf/bf",
+          "name": "entity.name.function.rte",
+          "match": "\\b[tnb]f[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables texte locales (tl...)",
+          "name": "variable.other.local.text.rte",
+          "match": "\\btl[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables numériques locales (nl...)",
+          "name": "variable.other.local.numeric.rte",
+          "match": "\\bnl[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables booléennes locales (bl...)",
+          "name": "variable.other.local.boolean.rte",
+          "match": "\\bbl[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Tableaux ta/na/ba",
+          "name": "variable.other.array.rte",
+          "match": "\\b[tnb]a[lL]?[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables texte (t...)",
+          "name": "variable.other.text.rte",
+          "match": "\\bt[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables numériques (n...)",
+          "name": "variable.other.numeric.rte",
+          "match": "\\bn[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables booléennes (b...)",
+          "name": "variable.other.boolean.rte",
+          "match": "\\bb[A-Z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "comment": "Variables JSON (js...)",
+          "name": "variable.other.json.rte",
+          "match": "\\bjs[A-Z][A-Za-z0-9_]*(\\.[a-zA-Z0-9_]+)*\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.rte",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.rte",
+          "match": "\\\\[\\\\\"nrtbf]"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.rte",
+          "match": "\\b[0-9]+\\.[0-9]+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.rte",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.rte",
+          "match": ":="
+        },
+        {
+          "name": "keyword.operator.increment.rte",
+          "match": "\\+\\+|--"
+        },
+        {
+          "name": "keyword.operator.comparison.rte",
+          "match": "<>|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.equality.rte",
+          "match": "(?<![:<>])=(?!=)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.rte",
+          "match": "[+\\-*/]"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "tradexpress-rte-support",
+  "displayName": "TradeXpress RTE Support",
+  "description": "Support complet pour le langage RTE de TradeXpress Infinity (Generix) : coloration syntaxique, snippets, formatter et documentation hover.",
+  "version": "1.0.0",
+  "publisher": "Cedard",
+  "license": "MIT",
+  "icon": "logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cedd33/tradexpress-rte-extension"
+  },
+  "homepage": "https://github.com/Cedd33/tradexpress-rte-extension#readme",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Snippets"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:rte"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "rte",
+        "aliases": ["RTE", "TradeXpress RTE"],
+        "extensions": [".rte", ".inc"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rte",
+        "scopeName": "source.rte",
+        "path": "./syntaxes/rte.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "rte",
+        "path": "./snippets/rte.json"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^2.0.0"
+  }
+}

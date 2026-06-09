@@ -1,0 +1,344 @@
+{
+  "Begin block": {
+    "prefix": "begin",
+    "body": [
+      "begin",
+      "\t$0",
+      "endbegin"
+    ],
+    "description": "Bloc begin - exécuté avant la lecture de l'input"
+  },
+  "End block": {
+    "prefix": "end",
+    "body": [
+      "end",
+      "\t$0",
+      "endend"
+    ],
+    "description": "Bloc end - exécuté après la lecture de tout l'input"
+  },
+  "Line statement - text anywhere": {
+    "prefix": "line",
+    "body": [
+      "line (\"$1\")",
+      "\t$0",
+      "endline"
+    ],
+    "description": "Bloc line - déclenché si le texte apparaît n'importe où sur la ligne"
+  },
+  "Line statement - text at position": {
+    "prefix": "linep",
+    "body": [
+      "line (${1:1}:\"$2\")",
+      "\t$0",
+      "endline"
+    ],
+    "description": "Bloc line - déclenché si le texte est à la position donnée"
+  },
+  "Line statement - regex": {
+    "prefix": "liner",
+    "body": [
+      "line '${1:^pattern}'",
+      "\t$0",
+      "endline"
+    ],
+    "description": "Bloc line - matching par expression régulière"
+  },
+  "Default block": {
+    "prefix": "default",
+    "body": [
+      "default",
+      "\t$0",
+      "enddefault"
+    ],
+    "description": "Bloc default - exécuté si aucun line/segment ne correspond"
+  },
+  "Segment statement": {
+    "prefix": "segment",
+    "body": [
+      "segment ${1:NAME}",
+      "\t$0",
+      "endsegment"
+    ],
+    "description": "Bloc segment - traitement d'un segment EDI"
+  },
+  "Segment with group": {
+    "prefix": "segmentg",
+    "body": [
+      "segment ${1:NAME} g${2:1}",
+      "\t$0",
+      "endsegment"
+    ],
+    "description": "Bloc segment avec groupe EDI"
+  },
+  "Function": {
+    "prefix": "function",
+    "body": [
+      "function ${1|tf,nf,bf|}${2:FunctionName} (${3})",
+      "\t$0",
+      "\treturn ${4}",
+      "endfunction"
+    ],
+    "description": "Déclaration de fonction RTE"
+  },
+  "Function - text return": {
+    "prefix": "tfunction",
+    "body": [
+      "function tf${1:Name} (${2})",
+      "\t$0",
+      "\treturn \"${3}\"",
+      "endfunction"
+    ],
+    "description": "Fonction retournant du texte"
+  },
+  "Function - numeric return": {
+    "prefix": "nfunction",
+    "body": [
+      "function nf${1:Name} (${2})",
+      "\t$0",
+      "\treturn ${3:0}",
+      "endfunction"
+    ],
+    "description": "Fonction retournant un nombre"
+  },
+  "Function - boolean return": {
+    "prefix": "bfunction",
+    "body": [
+      "function bf${1:Name} (${2})",
+      "\t$0",
+      "\treturn ${3:TRUE}",
+      "endfunction"
+    ],
+    "description": "Fonction retournant un booléen"
+  },
+  "If-then-endif": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition} then",
+      "\t$0",
+      "endif"
+    ],
+    "description": "Condition if-then-endif"
+  },
+  "If-then-else-endif": {
+    "prefix": "ife",
+    "body": [
+      "if ${1:condition} then",
+      "\t$2",
+      "else",
+      "\t$0",
+      "endif"
+    ],
+    "description": "Condition if-then-else-endif"
+  },
+  "While loop": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition} do",
+      "\t$0",
+      "endwhile"
+    ],
+    "description": "Boucle while générique"
+  },
+  "While - array scan": {
+    "prefix": "whilearray",
+    "body": [
+      "while ${1:tIndex} in ${2:taArray} do",
+      "\t$0",
+      "endwhile"
+    ],
+    "description": "Parcours d'un tableau (array scan)"
+  },
+  "While - list scan": {
+    "prefix": "whilelist",
+    "body": [
+      "while ${1:tValue} in ${2:taArray}[${3:tIndex}] do",
+      "\t$0",
+      "endwhile"
+    ],
+    "description": "Parcours d'une liste (list scan)"
+  },
+  "While - directory scan": {
+    "prefix": "whiledir",
+    "body": [
+      "while ${1:fFile} in \"${2:/path/to/*.rte}\" do",
+      "\t$0",
+      "endwhile"
+    ],
+    "description": "Parcours d'un répertoire (directory scan)"
+  },
+  "Switch statement": {
+    "prefix": "switch",
+    "body": [
+      "switch ${1:tVar}",
+      "\tcase \"${2:value1}\":",
+      "\t\t$3",
+      "\tcase \"${4:value2}\":",
+      "\t\t$5",
+      "\tdefault:",
+      "\t\t$0",
+      "endswitch"
+    ],
+    "description": "Switch statement RTE"
+  },
+  "Try-catch-endtry": {
+    "prefix": "try",
+    "body": [
+      "try",
+      "\t$1",
+      "catch",
+      "\t$0",
+      "endtry"
+    ],
+    "description": "Bloc try-catch pour gestion d'exceptions"
+  },
+  "Try-catch-finally-endtry": {
+    "prefix": "tryf",
+    "body": [
+      "try",
+      "\t$1",
+      "catch",
+      "\t$2",
+      "finally",
+      "\t$0",
+      "endtry"
+    ],
+    "description": "Bloc try-catch-finally"
+  },
+  "Message definition - building": {
+    "prefix": "msgbuild",
+    "body": [
+      "message \"${1:path/to/message.msg}\" building"
+    ],
+    "description": "Définition de message en mode building"
+  },
+  "Message definition - receiving": {
+    "prefix": "msgrecv",
+    "body": [
+      "message \"${1:path/to/message.msg}\" receiving"
+    ],
+    "description": "Définition de message en mode receiving"
+  },
+  "Database definition": {
+    "prefix": "base",
+    "body": [
+      "base \"${1:config.cfg}\" ${2:DBSYMBOL}"
+    ],
+    "description": "Définition de base de données EDIBASE"
+  },
+  "Print with newline": {
+    "prefix": "print",
+    "body": [
+      "print (${1:\"text\"}, NL)"
+    ],
+    "description": "Affichage avec saut de ligne"
+  },
+  "Log with newline": {
+    "prefix": "log",
+    "body": [
+      "log (${1:\"message\"}, NL)"
+    ],
+    "description": "Log avec saut de ligne"
+  },
+  "Pick from line": {
+    "prefix": "pick",
+    "body": [
+      "pick (${1:1}, ${2:1}, ${3:EOL})"
+    ],
+    "description": "Extraction d'une valeur depuis la ligne courante"
+  },
+  "Substr": {
+    "prefix": "substr",
+    "body": [
+      "substr (${1:tVar}, ${2:1}, ${3:length})"
+    ],
+    "description": "Extraction d'une sous-chaîne"
+  },
+  "Build": {
+    "prefix": "build",
+    "body": [
+      "build (${1:tVar})"
+    ],
+    "description": "Construction d'une chaîne"
+  },
+  "Split": {
+    "prefix": "split",
+    "body": [
+      "split (${1:tSource}, ${2:taResult}, \"${3:,}\")"
+    ],
+    "description": "Découpage d'une chaîne"
+  },
+  "SQL Connect": {
+    "prefix": "sqlconnect",
+    "body": [
+      "bfSqlConnect (\"${1:datasource}\", \"${2:user}\", \"${3:password}\")"
+    ],
+    "description": "Connexion SQL"
+  },
+  "SQL Execute": {
+    "prefix": "sqlexec",
+    "body": [
+      "bfSqlExec (\"${1:SELECT * FROM table WHERE id = '\" , ${2:tId} , \"'\")"
+    ],
+    "description": "Exécution d'une requête SQL"
+  },
+  "SQL Fetch loop": {
+    "prefix": "sqlfetch",
+    "body": [
+      "bfSqlExec (\"${1:SELECT col FROM table}\")",
+      "while bfSqlFetch () do",
+      "\t${2:tValue} := bfSqlSet (\"${3:col}\")",
+      "\t$0",
+      "endwhile",
+      "bfSqlClose ()"
+    ],
+    "description": "Boucle SQL fetch complète"
+  },
+  "HTTP GET": {
+    "prefix": "httpget",
+    "body": [
+      "bfHttpConnect (\"${1:https://api.example.com}\")",
+      "bfHttpGet (\"${2:/endpoint}\")",
+      "${3:tResponse} := bfHttpGetResponse ()",
+      "bfHttpClose ()"
+    ],
+    "description": "Appel HTTP GET"
+  },
+  "Inline C block": {
+    "prefix": "inline",
+    "body": [
+      "inline",
+      "\t$0",
+      "endinline"
+    ],
+    "description": "Bloc inline C"
+  },
+  "Comment separator": {
+    "prefix": "!---",
+    "body": [
+      "!${1:------------------------------------------------------------------}",
+      "! ${2:Description}",
+      "!${1:------------------------------------------------------------------}"
+    ],
+    "description": "Commentaire séparateur"
+  },
+  "Comment block": {
+    "prefix": "!===",
+    "body": [
+      "!==================================================================",
+      "! ${1:Description}",
+      "!=================================================================="
+    ],
+    "description": "Commentaire bloc principal"
+  },
+  "Information comment": {
+    "prefix": "%info",
+    "body": [
+      "%",
+      "% ${1:Description de ce traducteur}",
+      "% Usage: ${2:programme [options] < input > output}",
+      "%"
+    ],
+    "description": "Commentaire d'information (accessible via -i)"
+  }
+}
