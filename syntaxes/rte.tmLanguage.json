@@ -5,6 +5,7 @@
   "patterns": [
     { "include": "#comment-info" },
     { "include": "#comment-line" },
+    { "include": "#comment-block" },
     { "include": "#preprocessor" },
     { "include": "#block-keywords" },
     { "include": "#control-keywords" },
@@ -24,6 +25,11 @@
     "comment-line": {
       "name": "comment.line.exclamation.rte",
       "match": "!.*$"
+    },
+    "comment-block": {
+      "name": "comment.block.rte",
+      "begin": "/\\*",
+      "end": "\\*/"
     },
     "preprocessor": {
       "name": "meta.preprocessor.rte",

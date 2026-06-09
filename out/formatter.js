@@ -20,7 +20,7 @@ const DEFAULT_OPTIONS = {
 // Mots-clés qui ouvrent un bloc (indentation augmente APRÈS)
 const BLOCK_OPEN = /^(begin|line\b|line\s*\(|line\s+'|segment\b|default\b|function\b|end\b|if\b.*\bthen\b|while\b.*\bdo\b|switch\b|try\b|catch\b|finally\b|inline\b)\s*(\(.*\)|'.*'|.*)?$/i;
 // Mots-clés qui ferment un bloc (indentation diminue AVANT)
-const BLOCK_CLOSE = /^(endbegin|endline|endsegment|enddefault|endfunction|endend|endif|endwhile|endswitch|endtry|endinline|catch\b|finally\b)\b/i;
+const BLOCK_CLOSE = /^(endbegin|endline|endsegment|enddefault|endfunction|endend|endif|endwhile|endtry|endinline|catch\b|finally\b)\b/i;
 // Mots-clés qui ferment ET ouvrent (else : referme le if, ouvre un nouveau bloc)
 const BLOCK_ELSE = /^(else)\b/i;
 // case : ferme le case précédent et en ouvre un nouveau
@@ -34,6 +34,7 @@ function formatRte(source, options = {}) {
     const result = [];
     let level = 0;
     let consecutiveEmpty = 0;
+    const switchLevels = [];
     for (const rawLine of lines) {
         const line = rawLine.trim();
         // --- Lignes vides : limiter les répétitions ---
@@ -72,14 +73,29 @@ function formatRte(source, options = {}) {
             }
             continue;
         }
-        // --- case/default dans un switch : même niveau que le switch+1, contenu indenté ---
+        // --- Ouverture switch : mémoriser le niveau ---
+        if (/^switch\b/i.test(line)) {
+            result.push(indent.repeat(level) + line);
+            switchLevels.push(level);
+            level++;
+            continue;
+        }
+        // --- case/default : revenir au niveau switch+1 ---
         if (BLOCK_CASE.test(line)) {
-            // Si on est dans un case (level > niveau switch+1), refermer le case précédent
-            if (level > 1) {
-                level = Math.max(0, level - 1);
+            const switchLevel = switchLevels.length > 0
+                ? switchLevels[switchLevels.length - 1]
+                : Math.max(0, level - 1);
+            level = switchLevel + 1;
+            result.push(indent.repeat(switchLevel + 1) + line);
+            level = switchLevel + 2;
+            continue;
+        }
+        // --- endswitch : dépiler ---
+        if (/^endswitch\b/i.test(line)) {
+            if (switchLevels.length > 0) {
+                level = switchLevels.pop();
             }
             result.push(indent.repeat(level) + line);
-            level++;
             continue;
         }
         // --- Ligne normale ---

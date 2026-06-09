@@ -10,7 +10,7 @@
 - Ajout : snippets étendus (SQL, HTTP, exceptions, commentaires)
 - Ajout : `language-configuration.json` avec règles d'indentation et folding
 
-## 1.0.1s
+## 1.0.1
 
-- Ajout des fonction http et httpfile
-- Correction de l'indentation lors de l'écriture d'un switch case
+- Coloration syntaxique : ajout des commentaire de block /* et */
+- Indentation : Correction de l'indentation des switch / case
