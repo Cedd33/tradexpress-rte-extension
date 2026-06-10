@@ -23,10 +23,10 @@ const DEFAULT_OPTIONS: FormatterOptions = {
 };
 
 // Mots-clés qui ouvrent un bloc (indentation augmente APRÈS)
-const BLOCK_OPEN = /^(begin|line\b|line\s*\(|line\s+'|segment\b|default\b|function\b|end\b|if\b.*\bthen\b|while\b.*\bdo\b|switch\b|try\b|catch\b|finally\b|inline\b)\s*(\(.*\)|'.*'|.*)?$/i;
+const BLOCK_OPEN = /^(begin|line\b|line\s*\(|line\s+'|segment\b|default\b|function\b|end\b|if\b.*\bthen\b|while\b.*\bdo\b|switch\b|try\b|catch\b|finally\b|inline\b|nodein\b|nodeout\b)\s*(\(.*\)|'.*'|.*)?$/i;
 
 // Mots-clés qui ferment un bloc (indentation diminue AVANT)
-const BLOCK_CLOSE = /^(endbegin|endline|endsegment|enddefault|endfunction|endend|endif|endwhile|endtry|endinline|catch\b|finally\b)\b/i;
+const BLOCK_CLOSE = /^(endbegin|endline|endsegment|enddefault|endfunction|endend|endif|endwhile|endtry|endinline|catch\b|finally\b|endnodein\b|endnodeout\b)\b/i;
 
 // Mots-clés qui ferment ET ouvrent (else : referme le if, ouvre un nouveau bloc)
 const BLOCK_ELSE = /^(else)\b/i;

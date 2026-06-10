@@ -2,7 +2,7 @@
   "name": "tradexpress-rte-support",
   "displayName": "TradeXpress RTE Support",
   "description": "Support complet pour le langage RTE de TradeXpress Infinity (Generix) : coloration syntaxique, snippets, formatter et documentation hover.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "Cedard",
   "license": "MIT",
   "icon": "logo.png",

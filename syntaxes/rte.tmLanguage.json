@@ -32,23 +32,32 @@
       "end": "\\*/"
     },
     "preprocessor": {
-      "name": "meta.preprocessor.rte",
-      "match": "^\\s*(#\\s*(include|define|ifdef|ifndef|endif|else|undef|if))\\b.*$",
-      "captures": {
+    "name": "meta.preprocessor.rte",
+    "begin": "^\\s*(#\\s*(include|define|ifdef|ifndef|endif|else|undef|if))\\b",
+    "end": "$",
+    "beginCaptures": {
         "1": { "name": "keyword.control.preprocessor.rte" }
-      }
     },
+    "patterns": [
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#builtin-functions" },
+        { "include": "#builtin-constants" },
+        { "include": "#variable-types" },
+        { "include": "#system-variables" }
+    ]
+},
     "block-keywords": {
       "patterns": [
         {
           "comment": "Ouvertures de blocs",
           "name": "keyword.control.block.open.rte",
-          "match": "\\b(begin|endbegin|endend|endline|endsegment|endfunction|enddefault|endwhile|endif|endswitch|endtry|endinline)\\b"
+          "match": "\\b(begin|endbegin|endend|endline|endsegment|endfunction|enddefault|endwhile|endif|endswitch|endtry|endinline|endnodein|endnodeout)\\b"
         },
         {
           "comment": "Déclarations de blocs",
           "name": "keyword.control.block.declaration.rte",
-          "match": "^\\s*(line|segment|default|function|inline)(?=\\s|$|\\()"
+          "match": "^\\s*(line|segment|default|function|inline|nodein|nodeout)(?=\\s|$|\\()"
         },
         {
           "comment": "Bloc begin/end spéciaux",

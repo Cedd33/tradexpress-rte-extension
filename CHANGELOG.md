@@ -14,3 +14,6 @@
 
 - Coloration syntaxique : ajout des commentaire de block /* et */
 - Indentation : Correction de l'indentation des switch / case
+
+## 1.0.2
+- Indentation : Correction des nodein / nodeout
